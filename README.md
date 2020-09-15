@@ -44,6 +44,17 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 
+### Add current user to docker group to execute docker commands without sudo
+sudo gpasswd -a $USER docker
+
+
+### create image
 docker build -t balancer_web-nginx .
+
+### start container
 docker run --publish 8080:8080 --detach --name balancer_web balancer_web-nginx
-docker run -p 80:80/tcp --detach --name balancer_web balancer_web-nginx
+docker run -p 8080:80/tcp --detach --name balancer_web balancer_web-nginx
+
+
+
+
