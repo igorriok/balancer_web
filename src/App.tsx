@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import './App.css';
+import PrivateRoute from "./PrivateRoute";
+import LoginPage from "./LoginPage";
+
+
+function ProtectedPage() {
+  return <h3>Protected</h3>;
+}
+
 
 function App() {
+  
+  const [auth, setAuth] = useState(false);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={LoginPage}/>
+          <PrivateRoute
+            path="/protected"
+            auth={auth}
+            setAuth={setAuth}
+          >
+            <ProtectedPage />
+          </PrivateRoute>
+          <Route path="*">
+            <Redirect to="/"/>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
