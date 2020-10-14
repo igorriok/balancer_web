@@ -3,17 +3,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -29,68 +18,56 @@
 
 /* Login Page */
 
-/* Bordered form */
-form {
-  border: 3px solid #f1f1f1;
-
-}
 
 /* Full-width inputs */
-input[type=text], input[type=password] {
-  width: 100%;
+input[type=text], input[type=password] , input[type=email] {
+  /*width: 100%;*/
   padding: 8px 16px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
-  max-width: 300px;
+  max-width: 600px;
   border-radius: 4px;
 }
 
 /* Set a style for all buttons */
 button {
-  background-color: #4CAF50;
   color: white;
   padding: 8px 16px;
   margin: 16px 8px;
   border: none;
   cursor: pointer;
+  /*width: 100%;*/
+  /*max-width: 600px;*/
+  border-radius: 4px;
+}
+
+#loginButton {
+  background-color: #4CAF50;
   width: 100%;
   max-width: 300px;
-  border-radius: 4px;
+}
+
+#signupButton, .signupbtn {
+  background-color: #4169E1;
+  max-width: 300px;
 }
 
 /* Add a hover effect for buttons */
 button:hover {
-  opacity: 0.8;
-}
-
-/* Extra style for the cancel button (red) */
-.cancelbtn {
-  /*width: auto;*/
-  padding: 8px 16px;
-  background-color: #f44336;
-}
-
-/* Center the avatar image inside this container */
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-/* Avatar image */
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
+  opacity: 0.7;
 }
 
 /* Add padding to containers */
-.container {
+form {
+  /*border: 3px solid #f1f1f1;*/
   padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 600px;
 }
 
 /* The "Forgot password" text */
@@ -100,7 +77,7 @@ span.psw {
 }
 
 /* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
+/*@media screen and (max-width: 600px) {
   span.psw {
     display: block;
     float: none;
@@ -108,9 +85,18 @@ span.psw {
   .cancelbtn {
     width: 100%;
   }
-}
+}*/
 
 #loginPage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#signupPage {
   width: 100%;
   height: 100vh;
   display: flex;

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 
 const LOGIN_URL = process.env.NODE_ENV !== "production" ?
@@ -19,7 +20,10 @@ export default function LoginPage() {
 	}
 	
 	
-	async function sendCredentials() {
+	async function sendCredentials(event: any) {
+		
+		event.preventDefault();
+		
 		await fetch(LOGIN_URL, {
 			method: 'POST', // *GET, POST, PUT, DELETE, etc.
 			mode: 'cors', // no-cors, *cors, same-origin
@@ -46,15 +50,18 @@ export default function LoginPage() {
 
 	return (
 		<div id={'loginPage'}>
+			
 			<form onSubmit={sendCredentials} autoComplete="on">
-				<div className="container">
+				
+				{/*<div className="credentials">*/}
+					
 					<label htmlFor="uname">
 						<b>
-							Username
+							Email
 						</b>
 					</label>
 					<input
-						type="text"
+						type="email"
 						placeholder="Enter Username"
 						name="uname"
 						required
@@ -76,16 +83,29 @@ export default function LoginPage() {
 						onChange={handlePassword}
 					/>
 					
-					<button type="submit">
+					<button type="submit" id={"loginButton"}>
 						Login
 					</button>
 					
 					<label>
-						<input type="checkbox" checked={checkBox} name="remember" onChange={handleCheckBox}/> Remember me
+						<input
+							type="checkbox"
+							checked={checkBox}
+							name="remember"
+							onChange={handleCheckBox}
+						/>
+						Remember me
 					</label>
 					
-				</div>
+				{/*</div>*/}
 			</form>
+			
+			<Link to="/signup">
+				<button id={"signupButton"}>
+					Signup
+				</button>
+			</Link>
+			
 		</div>
 	);
 }
