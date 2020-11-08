@@ -9,7 +9,7 @@ const SIGNUP_URL = process.env.NODE_ENV !== "production" ?
 
 export default function SignupPage() {
 	
-	const [username, setUsername] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	
 	
@@ -22,7 +22,7 @@ export default function SignupPage() {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({username: username, password: password}),
+			body: JSON.stringify({enail: email, password: password}),
 		}).then((response) => {
 			return response.json();
 		}).then((data) => {
@@ -30,8 +30,8 @@ export default function SignupPage() {
 		});
 	}
 	
-	const handleUsername = (event: any) => {
-		setUsername(event.target.value)
+	const handleEmail = (event: any) => {
+		setEmail(event.target.value)
 	}
 	
 	const handlePassword = (event: any) => {
@@ -58,6 +58,7 @@ export default function SignupPage() {
 						placeholder="Enter Email"
 						name="email"
 						required
+						onChange={(e) => handleEmail(e)}
 					/>
 					
 					<label htmlFor="psw">
@@ -68,6 +69,7 @@ export default function SignupPage() {
 						placeholder="Enter Password"
 						name="psw"
 						required
+						onChange={(e) => handlePassword(e)}
 					/>
 					
 					{/*<p>
