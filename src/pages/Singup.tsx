@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 
 
 const SIGNUP_URL = process.env.NODE_ENV !== "production" ?
-	'http://localhost:3057/balancer/signup' :
-	'http://localhost:3057/balancer/signup';
+	'http://localhost:5037/signup' :
+	'http://178.168.41.217:5037/signup';
 	
 
 
@@ -13,7 +13,13 @@ export default function SignupPage() {
 	const [password, setPassword] = useState<string>('');
 	
 	
-	async function sendCredentials() {
+	async function sendCredentials(event: any) {
+		
+		event.preventDefault();
+		
+		console.dir(email);
+		console.dir(password);
+		
 		await fetch(SIGNUP_URL, {
 			method: 'POST', // *GET, POST, PUT, DELETE, etc.
 			mode: 'cors', // no-cors, *cors, same-origin
@@ -22,11 +28,14 @@ export default function SignupPage() {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({enail: email, password: password}),
+			body: JSON.stringify({email: email, password: password}),
 		}).then((response) => {
-			return response.json();
+			console.log(response);
+			return response.text();
 		}).then((data) => {
-			console.dir(data);
+			console.log(data);
+		}).catch(error => {
+			console.error('Error:', error);
 		});
 	}
 	

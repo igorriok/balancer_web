@@ -54,6 +54,7 @@ docker build -t balancer_web-nginx .
 ### start container
 docker run --publish 8080:8080 --detach --name balancer_web balancer_web-nginx
 docker run -p 8080:80/tcp --detach --name balancer_web balancer_web-nginx
+docker run -p 80:3000/tcp --detach --name balancer_web balancer_web-nginx
 
 
 

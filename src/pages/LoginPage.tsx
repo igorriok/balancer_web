@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 
 
 const LOGIN_URL = process.env.NODE_ENV !== "production" ?
-	'http://localhost:2010/crit/bridgedeck/getusername' :
-	'http://localhost:2010/crit/bridgedeck/getusername';
+	'http://localhost:5037/crit/bridgedeck/getusername' :
+	'http://balancer_spring:5037/crit/bridgedeck/getusername';
 	
 
 
