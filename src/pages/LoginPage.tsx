@@ -34,6 +34,8 @@ export default function LoginPage() {
 			},
 			body: JSON.stringify({username: username, password: password}),
 		}).then((response) => {
+			
+			// TODO: Go to dashboard...
 			return response.json();
 		}).then((data) => {
 			console.dir(data);
