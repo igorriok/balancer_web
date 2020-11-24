@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 
 
 const LOGIN_URL = process.env.NODE_ENV !== "production" ?
-	'http://localhost:5037/crit/bridgedeck/getusername' :
-	'http://balancer_spring:5037/crit/bridgedeck/getusername';
+	'http://localhost:5037/authenticate' :
+	'http://178.168.41.217:5037/authenticate';
 	
 
 
@@ -62,7 +62,7 @@ export default function LoginPage() {
 					</label>
 					<input
 						type="email"
-						placeholder="Enter Username"
+						placeholder="Enter Email"
 						name="uname"
 						required
 						value={username}
