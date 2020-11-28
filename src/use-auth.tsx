@@ -31,14 +31,12 @@ export const useAuth: any = () => {
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
 
-    console.log("init");
-
     const [user, setUser] = useState<string>("");
     const [token, setToken] = useState<string>("");
 
     // Wrap any Firebase methods we want to use making sure ...
     // ... to save the user to state.
-    const signIn = (email: string, password:string) => {
+    const signIn = (email: string, password:string, cb: any) => {
 
         return fetch(LOGIN_URL, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -55,6 +53,7 @@ function useProvideAuth() {
             console.dir(data);
             setUser(email);
             setToken(data.token);
+            cb();
             return data;
         });
 
@@ -76,6 +75,7 @@ function useProvideAuth() {
     // Return the user object and auth methods
     return {
         user,
+        token,
         signin: signIn,
         signout: signOut,
         sendPasswordResetEmail,

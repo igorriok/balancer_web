@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link, useHistory } from 'react-router-dom';
+import {Link, useHistory, useLocation } from 'react-router-dom';
 import {useAuth} from "../use-auth";
 
 
@@ -13,8 +13,7 @@ export default function LoginPage() {
 	const [checkBox, setCheckBox] = useState<boolean>(true);
 	const auth = useAuth();
 	const history = useHistory();
-	
-	console.log(history);
+	let location = useLocation();
 	
 	
 	const handleCheckBox = (event: any) => {
@@ -23,12 +22,22 @@ export default function LoginPage() {
 	}
 	
 	
+	const changeFrom = () => {
+		// @ts-ignore
+		history.replace({ from: { pathname: "/" } });
+	}
+	
+	
 	async function sendCredentials(event: any) {
 		
 		event.preventDefault();
 		
-		auth.signin(username, password).then(() => {
-			history.push("/");
+		// @ts-ignore
+		let { from } = location.state || { from: { pathname: "/" } };
+		
+		auth.signin(username, password, () => {
+			// @ts-ignore
+			history.replace(from);
 		});
 	}
 	
