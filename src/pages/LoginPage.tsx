@@ -22,12 +22,6 @@ export default function LoginPage() {
 	}
 	
 	
-	const changeFrom = () => {
-		// @ts-ignore
-		history.replace({ from: { pathname: "/" } });
-	}
-	
-	
 	async function sendCredentials(event: any) {
 		
 		event.preventDefault();
@@ -35,7 +29,7 @@ export default function LoginPage() {
 		// @ts-ignore
 		let { from } = location.state || { from: { pathname: "/" } };
 		
-		auth.signin(username, password, () => {
+		await auth.signin(username, password, () => {
 			// @ts-ignore
 			history.replace(from);
 		});
