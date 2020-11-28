@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory } from 'react-router-dom';
+import {useAuth} from "../use-auth";
 
 
-const LOGIN_URL = process.env.NODE_ENV !== "production" ?
-	'http://localhost:5037/authenticate' :
-	'http://178.168.41.217:5037/authenticate';
-	
+
 
 
 export default function LoginPage() {
@@ -13,6 +11,11 @@ export default function LoginPage() {
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [checkBox, setCheckBox] = useState<boolean>(true);
+	const auth = useAuth();
+	const history = useHistory();
+	
+	console.log(history);
+	
 	
 	const handleCheckBox = (event: any) => {
 		console.log(event.target.checked);
@@ -24,21 +27,8 @@ export default function LoginPage() {
 		
 		event.preventDefault();
 		
-		await fetch(LOGIN_URL, {
-			method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			mode: 'cors', // no-cors, *cors, same-origin
-			cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-			credentials: 'same-origin', // include, *same-origin, omit
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({username: username, password: password}),
-		}).then((response) => {
-			
-			// TODO: Go to dashboard...
-			return response.json();
-		}).then((data) => {
-			console.dir(data);
+		auth.signin(username, password).then(() => {
+			history.push("/");
 		});
 	}
 	
