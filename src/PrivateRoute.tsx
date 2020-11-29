@@ -15,9 +15,9 @@ export default function PrivateRoute({ children, ...rest }) {
             {...rest}
             render={({ location }) => {
 
-                console.dir(auth.user);
+                console.dir(auth.user.token);
 
-                return auth.user ? (
+                return auth.user.token ? (
                     children
                 ) : (
                     <Redirect
@@ -27,8 +27,7 @@ export default function PrivateRoute({ children, ...rest }) {
                         }}
                     />
                 )
-            }
-            }
+            }}
         />
     );
 }

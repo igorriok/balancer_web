@@ -1,4 +1,5 @@
 import React, {useState, createContext, useContext} from "react";
+import {User} from "./entities/User";
 
 
 const LOGIN_URL = process.env.NODE_ENV !== "production" ?
@@ -30,9 +31,12 @@ export const useAuth: any = () => {
 
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
+    
+    const userString: string | null = localStorage.getItem('user');
+    const userObj: User = userString ? JSON.parse(userString) : {username: "", token: ""};
 
-    const [user, setUser] = useState<string>("");
-    const [token, setToken] = useState<string>("");
+    const [user, setUser] = useState<User>(userObj);
+    const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
     // Wrap any Firebase methods we want to use making sure ...
     // ... to save the user to state.
@@ -51,8 +55,12 @@ function useProvideAuth() {
             return response.json();
         }).then((data) => {
             console.dir(data);
-            setUser(email);
+            
+            localStorage.setItem("user", JSON.stringify({username: email, token: data.token}));
+            
+            setUser({username: email, token: data.token});
             setToken(data.token);
+            
             cb();
             return data;
         });
@@ -60,7 +68,7 @@ function useProvideAuth() {
     };
 
     const signOut = () => {
-        setUser("");
+        setUser({username: "", token: ""});
     };
 
     const sendPasswordResetEmail = (email: string) => {
