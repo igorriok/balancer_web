@@ -1,3 +1,5 @@
+
+
 .App {
   min-height: 100vh;
   text-align: center;
@@ -104,3 +106,36 @@ span.psw {
   align-items: center;
   justify-content: center;
 }
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.topnav .btn {
+  float: left;
+  background-color: Transparent;
+  outline:none;
+  border: none; /* Remove borders */
+  cursor: pointer; /* Mouse pointer on hover */
+  padding: 0;
+}
+
+.topnav .btn .img {
+  margin: 0;
+}
+
+/* Darker background on mouse-over */
+.topnav .btn:hover {
+  background-color: RoyalBlue;
+}
+

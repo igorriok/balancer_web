@@ -36,7 +36,6 @@ function useProvideAuth() {
     const userObj: User = userString ? JSON.parse(userString) : {username: "", token: ""};
 
     const [user, setUser] = useState<User>(userObj);
-    const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
     // Wrap any Firebase methods we want to use making sure ...
     // ... to save the user to state.
@@ -54,12 +53,12 @@ function useProvideAuth() {
         }).then((response) => {
             return response.json();
         }).then((data) => {
+            
             console.dir(data);
             
             localStorage.setItem("user", JSON.stringify({username: email, token: data.token}));
             
             setUser({username: email, token: data.token});
-            setToken(data.token);
             
             cb();
             return data;
@@ -83,7 +82,6 @@ function useProvideAuth() {
     // Return the user object and auth methods
     return {
         user,
-        token,
         signin: signIn,
         signout: signOut,
         sendPasswordResetEmail,

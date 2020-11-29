@@ -6,7 +6,7 @@ export default function Dashboard() {
 	
 	let auth: any = useAuth();
 	
-	console.dir(auth.token);
+	console.dir(auth.user.token);
 	
 	return (
 		<h2>
