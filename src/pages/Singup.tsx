@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {useAuth} from "../use-auth";
+import {useHistory, useLocation} from "react-router-dom";
 
 
 const SIGNUP_URL = process.env.NODE_ENV !== "production" ?
@@ -11,6 +13,9 @@ export default function SignupPage() {
 	
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
+	const auth = useAuth();
+	let location = useLocation();
+	const history = useHistory();
 	
 	
 	async function sendCredentials(event: any) {
@@ -34,6 +39,14 @@ export default function SignupPage() {
 			return response.text();
 		}).then((data) => {
 			console.log(data);
+			
+			// @ts-ignore
+			let { from } = location.state || { from: { pathname: "/" } };
+			
+			auth.signin(email, password, () => {
+				// @ts-ignore
+				history.replace(from);
+			});
 		}).catch(error => {
 			console.error('Error:', error);
 		});
