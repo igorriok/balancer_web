@@ -6,7 +6,6 @@ import { ProvideAuth } from "./use-auth";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/Singup";
 import Dashboard from "./pages/Dashboard";
-import menuIcon from './icons/menu-white-48dp.svg';
 
 
 
@@ -19,9 +18,15 @@ function App() {
       <ProvideAuth>
   
         <div className="topnav">
+  
           <button className="btn">
-            <img src={menuIcon} alt="menu" height={30}/>
+            <i className="material-icons">menu</i>
           </button>
+  
+          <button className="btn">
+            <i className="material-icons">add</i>
+          </button>
+          
         </div>
         
         <Router>
