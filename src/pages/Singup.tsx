@@ -104,7 +104,7 @@ export default function SignupPage() {
 					
 					<button
 						type="submit"
-						className="signupbtn"
+						className="confirmButton"
 					>
 						Sign Up
 					</button>
