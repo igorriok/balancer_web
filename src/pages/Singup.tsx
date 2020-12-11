@@ -64,7 +64,7 @@ export default function SignupPage() {
 	return (
 		<div id={'signupPage'}>
 			
-				<form onSubmit={sendCredentials} autoComplete="on">
+				<form onSubmit={sendCredentials} autoComplete="on" className='formContainer'>
 						
 					<h1>Sign Up</h1>
 					
@@ -74,25 +74,25 @@ export default function SignupPage() {
 					
 					<label htmlFor="email">
 						<b>Email</b>
+						<input
+							type="email"
+							placeholder="Enter Email"
+							name="email"
+							required
+							onChange={(e) => handleEmail(e)}
+						/>
 					</label>
-					<input
-						type="email"
-						placeholder="Enter Email"
-						name="email"
-						required
-						onChange={(e) => handleEmail(e)}
-					/>
 					
 					<label htmlFor="psw">
 						<b>Password</b>
+						<input
+							type="password"
+							placeholder="Enter Password"
+							name="psw"
+							required
+							onChange={(e) => handlePassword(e)}
+						/>
 					</label>
-					<input
-						type="password"
-						placeholder="Enter Password"
-						name="psw"
-						required
-						onChange={(e) => handlePassword(e)}
-					/>
 					
 					{/*<p>
 						By creating an account you agree to our
@@ -102,10 +102,7 @@ export default function SignupPage() {
 						.
 					</p>*/}
 					
-					<button
-						type="submit"
-						className="confirmButton"
-					>
+					<button type="submit" className="confirmButton">
 						Sign Up
 					</button>
 				</form>

@@ -25,7 +25,7 @@ const styles: StylesDictionary = {
 		
 	},
 	container: {
-		padding: '% 25% 5% 25%',
+		padding: '0% 25% 5% 25%',
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
@@ -92,7 +92,7 @@ export default function TaskPage(props: TaskPageProps) {
 			</button>
 			
 			
-			<form onSubmit={saveTask} style={styles.container}>
+			<form onSubmit={saveTask} style={styles.container} autoComplete="on">
 			
 				<h1>New task</h1>
 				

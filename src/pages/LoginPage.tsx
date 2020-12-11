@@ -46,7 +46,7 @@ export default function LoginPage() {
 	return (
 		<div id={'loginPage'}>
 			
-			<form onSubmit={sendCredentials} autoComplete="on">
+			<form onSubmit={sendCredentials} className='formContainer' autoComplete="on">
 				
 				{/*<div className="credentials">*/}
 					
