@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
 import PrivateRoute from "./PrivateRoute";
@@ -6,11 +6,13 @@ import { ProvideAuth } from "./use-auth";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/Singup";
 import Dashboard from "./pages/Dashboard";
+import TaskPage from "./pages/TaskPage";
 
 
 
 function App() {
   
+  const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
   
   
   return (
@@ -23,7 +25,10 @@ function App() {
             <i className="material-icons">menu</i>
           </button>
   
-          <button className="btn">
+          <button
+              className="btn"
+              onClick={() => setShowTaskDialog(!showTaskDialog)}
+          >
             <i className="material-icons">add</i>
           </button>
           
@@ -46,6 +51,11 @@ function App() {
             
           </div>
         </Router>
+        
+        {
+          showTaskDialog && (<TaskPage setShowTaskDialog={setShowTaskDialog}/>)
+        }
+        
       </ProvideAuth>
     </div>
   );
