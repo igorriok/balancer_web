@@ -27,7 +27,7 @@ const styles: StylesDictionary = {
 	},
 	container: {
 		//padding: '0% 25% 5% 25%',
-		padding: '1%',
+		padding: '0 1% 0 1%',
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
@@ -38,6 +38,9 @@ const styles: StylesDictionary = {
 		maxWidth: '600px',
 		minWidth: '400px',
 		borderRadius: '8px',
+	},
+	title: {
+		margin: '0',
 	}
 }
 
@@ -87,19 +90,20 @@ export default function TaskPage(props: TaskPageProps) {
 	return (
 		<div id="taskPage" style={styles.taskPage}>
 			
-			<button
-				//style={styles.closeButton}
-				className={"close"}
-				title="Close"
-				onClick={() => setShowTaskDialog(false)}
-			>
-				&times;
-			</button>
-			
-			
 			<form onSubmit={saveTask} style={styles.container} autoComplete="on">
+				
+				<div className={"closeRow"}>
+					<div
+						//style={styles.closeButton}
+						className={"close"}
+						title="Close"
+						onClick={() => setShowTaskDialog(false)}
+					>
+						<i className="material-icons">clear</i>
+					</div>
+				</div>
 			
-				<h1>New task</h1>
+				<h1 style={styles.title}>New task</h1>
 				
 				<label htmlFor="taskName">
 					<b>Task name: </b>
