@@ -62,7 +62,7 @@ export default function SignupPage() {
 	
 
 	return (
-		<div id={'signupPage'}>
+		<div className={'loginPage'}>
 			
 				<form onSubmit={sendCredentials} autoComplete="on" className='formContainer'>
 						

@@ -19,18 +19,22 @@ function App() {
     <div className="App">
       <ProvideAuth>
   
-        <div className="topnav">
+        <div className="topNav">
+          
+          <div id="toolbar">
   
-          <button className="btn">
-            <i className="material-icons">menu</i>
-          </button>
-  
-          <button
-              className="btn"
-              onClick={() => setShowTaskDialog(!showTaskDialog)}
-          >
-            <i className="material-icons">add</i>
-          </button>
+            <button className="btn">
+              <i className="material-icons">menu</i>
+            </button>
+    
+            <button
+                className="btn"
+                onClick={() => setShowTaskDialog(!showTaskDialog)}
+            >
+              <i className="material-icons">add</i>
+            </button>
+
+          </div>
           
         </div>
         

@@ -44,7 +44,7 @@ export default function LoginPage() {
 	}
 
 	return (
-		<div id={'loginPage'}>
+		<div className={'loginPage'}>
 			
 			<form onSubmit={sendCredentials} className='formContainer' autoComplete="on">
 				
@@ -78,7 +78,7 @@ export default function LoginPage() {
 						onChange={handlePassword}
 					/>
 					
-					<button type="submit" id={"loginButton"}>
+					<button type="submit" className={'confirmButton'}>
 						Login
 					</button>
 					

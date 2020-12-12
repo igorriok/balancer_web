@@ -2,11 +2,12 @@ import React, {CSSProperties} from 'react';
 import {useAuth} from "../use-auth";
 import "./TaskPage.css"
 
+
+const groupList: string[] = ['solonari', 'daniliuc', 'igor+ida'];
+
 interface StylesDictionary {
 	[Key: string]: CSSProperties;
 }
-
-
 const styles: StylesDictionary = {
 	taskPage: {
 		position: "fixed",
@@ -21,21 +22,22 @@ const styles: StylesDictionary = {
 		flexDirection: "column",
 		justifyContent: "flex-start",
 		alignItems: "center",
-		paddingTop: '50px'
+		//paddingTop: '5%'
 		
 	},
 	container: {
-		padding: '0% 25% 5% 25%',
+		//padding: '0% 25% 5% 25%',
+		padding: '1%',
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
 		backgroundColor: 'rgba(254, 254, 254, 0.9)',
-		margin: '5% auto 15% auto', /* 5% from the top, 15% from the bottom and centered */
+		margin: '5% 0 0 0',
 		border: '1px solid #888',
-		width: '30%',
+		width: '20%',
 		maxWidth: '600px',
 		minWidth: '400px',
-		borderRadius: '4px',
+		borderRadius: '8px',
 	}
 }
 
@@ -43,7 +45,6 @@ const styles: StylesDictionary = {
 interface TaskPageProps {
 	setShowTaskDialog: any;
 }
-
 
 export default function TaskPage(props: TaskPageProps) {
 	
@@ -104,10 +105,13 @@ export default function TaskPage(props: TaskPageProps) {
 				<label htmlFor="groupName">
 					<b>Group: </b>
 					<select placeholder="Select group name" name="groupName">
-						<option value="volvo">Volvo</option>
-						<option value="saab">Saab</option>
-						<option value="opel">Opel</option>
-						<option value="audi">Audi</option>
+						{
+							groupList.map(group => {
+								return (
+									<option value={group}>{group}</option>
+								)
+							})
+						}
 					</select>
 				</label>
 				
