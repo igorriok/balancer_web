@@ -1,4 +1,4 @@
-import React, {CSSProperties} from 'react';
+import React, {CSSProperties, useState} from 'react';
 import {useAuth} from "../use-auth";
 import "./TaskPage.css"
 
@@ -50,12 +50,16 @@ export default function TaskPage(props: TaskPageProps) {
 	
 	const { setShowTaskDialog } = props;
 	let auth: any = useAuth();
+	const [ taskName, setTaskName ] = useState<string>('');
+	const [ groupName, setGroupName ] = useState<string>('');
 	
 	
 	async function saveTask(event: any) {
 		
 		event.preventDefault();
 		
+		console.log(taskName);
+		console.log(groupName);
 		
 		await fetch("", {
 			method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -65,7 +69,7 @@ export default function TaskPage(props: TaskPageProps) {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			//body: JSON.stringify({email: email, password: password}),
+			body: JSON.stringify({taskName: taskName, groupName: groupName}),
 		}).then((response) => {
 			console.log(response);
 			return response.text();
@@ -99,16 +103,31 @@ export default function TaskPage(props: TaskPageProps) {
 				
 				<label htmlFor="taskName">
 					<b>Task name: </b>
-					<input type="text" placeholder="Enter task name" name="taskName" required/>
+					<input
+						type="text"
+						placeholder="Enter task name"
+						name="taskName"
+						required
+						value={taskName}
+						onChange={(e) => setTaskName(e.target.value)}
+					/>
 				</label>
 				
 				<label htmlFor="groupName">
 					<b>Group: </b>
-					<select placeholder="Select group name" name="groupName">
+					<select
+						placeholder="Select group name"
+						name="groupName"
+						value={groupName}
+						onChange={(e) => setGroupName(e.target.value)}
+					>
+						<option value=""/>
 						{
 							groupList.map(group => {
 								return (
-									<option value={group}>{group}</option>
+									<option value={group} key={group}>
+										{group}
+									</option>
 								)
 							})
 						}
