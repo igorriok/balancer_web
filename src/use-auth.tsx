@@ -33,7 +33,7 @@ export const useAuth: any = () => {
 function useProvideAuth() {
     
     const userString: string | null = localStorage.getItem('user');
-    const userObj: User = userString ? JSON.parse(userString) : {username: "", token: ""};
+    const userObj: User = /*userString ? JSON.parse(userString) :*/ {username: "", token: ""};
 
     const [user, setUser] = useState<User>(userObj);
 
@@ -51,6 +51,7 @@ function useProvideAuth() {
             },
             body: JSON.stringify({username: email, password: password}),
         }).then((response) => {
+            console.log(response);
             return response.json();
         }).then((data) => {
             
@@ -62,7 +63,9 @@ function useProvideAuth() {
             
             cb();
             return data;
-        });
+        }).catch((error) => {
+            console.error(error);
+        })
 
     };
 

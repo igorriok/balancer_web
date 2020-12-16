@@ -1,7 +1,11 @@
 import React, {CSSProperties, useState} from 'react';
 import {useAuth} from "../use-auth";
-import "./TaskPage.css"
+import "./TaskPage.css";
+import axios from "axios";
 
+const SAVE_TASK_URL = process.env.NODE_ENV !== "production" ?
+	'http://localhost:5037/savetask' :
+	'http://178.168.41.217:5037/savetask';
 
 const groupList: string[] = ['solonari', 'daniliuc', 'igor+ida'];
 
@@ -64,24 +68,19 @@ export default function TaskPage(props: TaskPageProps) {
 		console.log(taskName);
 		console.log(groupName);
 		
-		await fetch("", {
-			method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			mode: 'cors', // no-cors, *cors, same-origin
-			cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
-			credentials: 'same-origin', // include, *same-origin, omit
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({taskName: taskName, groupName: groupName}),
-		}).then((response) => {
-			console.log(response);
-			return response.text();
-		}).then((data) => {
-			console.log(data);
-			
-		}).catch(error => {
-			console.error('Error:', error);
-		});
+		await axios.post(SAVE_TASK_URL,
+			{taskName: taskName, groupName: groupName},
+			{
+				headers: {
+					"Accept": "application/json",
+					Authorization: `Bearer ${auth.user.token}`
+				},
+			}).then((response) => {
+				console.log(response);
+				//return response.data;
+			}).catch(error => {
+				console.error('Error:', error);
+			});
 	}
 	
 	
