@@ -6,13 +6,20 @@ import { ProvideAuth } from "./use-auth";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/Singup";
 import Dashboard from "./pages/Dashboard";
-import TaskPage from "./pages/TaskPage";
 
 
 
 function App() {
   
-  const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
+  const [ pageTools, setPageTools ] = useState([]);
+  
+  const tools = () => {
+    return (
+        <div>
+          {pageTools}
+        </div>
+    )
+  }
   
   
   return (
@@ -26,13 +33,10 @@ function App() {
             <button className="btn">
               <i className="material-icons">menu</i>
             </button>
-    
-            <button
-                className="btn"
-                onClick={() => setShowTaskDialog(!showTaskDialog)}
-            >
-              <i className="material-icons">add</i>
-            </button>
+            
+            {
+              pageTools
+            }
 
           </div>
           
@@ -49,16 +53,14 @@ function App() {
                 <SignupPage />
               </Route>
               <PrivateRoute exact path="/">
-                <Dashboard />
+                <Dashboard
+                    setPageTools={setPageTools}
+                />
               </PrivateRoute>
             </Switch>
             
           </div>
         </Router>
-        
-        {
-          showTaskDialog && (<TaskPage setShowTaskDialog={setShowTaskDialog}/>)
-        }
         
       </ProvideAuth>
     </div>
