@@ -55,7 +55,7 @@ function useProvideAuth() {
             return response.json();
         }).then((data) => {
             
-            console.dir(data);
+            //console.dir(data);
             
             localStorage.setItem("user", JSON.stringify({username: email, token: data.token}));
             
@@ -71,6 +71,7 @@ function useProvideAuth() {
 
     const signOut = () => {
         setUser({username: "", token: ""});
+        localStorage.clear();
     };
 
     const sendPasswordResetEmail = (email: string) => {

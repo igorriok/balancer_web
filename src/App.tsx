@@ -13,14 +13,6 @@ function App() {
   
   const [ pageTools, setPageTools ] = useState([]);
   
-  const tools = () => {
-    return (
-        <div>
-          {pageTools}
-        </div>
-    )
-  }
-  
   
   return (
     <div className="App">

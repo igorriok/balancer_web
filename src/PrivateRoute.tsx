@@ -15,7 +15,7 @@ export default function PrivateRoute({ children, ...rest }) {
             {...rest}
             render={({ location }) => {
 
-                console.dir(auth.user.token);
+                //console.dir(auth.user.token);
 
                 return auth.user.token ? (
                     children

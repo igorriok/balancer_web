@@ -20,6 +20,7 @@ export default function Dashboard(props: DashboardProps) {
 	const { setPageTools } = props;
 	const [ taskList, setTaskList ] = useState<Task[]>([]);
 	const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
+	const [ task, setTask ] = useState<Task>({id: undefined, taskName: "", groupName: ""});
 	
 	//console.dir(auth.user.token);
 	
@@ -57,6 +58,13 @@ export default function Dashboard(props: DashboardProps) {
 	},[setPageTools, showTaskDialog]);
 	
 	
+	const openTaskDialog = (task: Task) => {
+		console.dir(task);
+		setTask(task);
+		setShowTaskDialog(true);
+	}
+	
+	
 	return (
 		<div>
 			<h2>
@@ -66,7 +74,10 @@ export default function Dashboard(props: DashboardProps) {
 			<ul>
 				{
 					taskList.map((task: Task) =>
-							<li key={task.id}>
+							<li
+								key={task.id}
+								onClick={() => openTaskDialog(task)}
+							>
 								{task.taskName}
 							</li>
 					)
@@ -74,7 +85,14 @@ export default function Dashboard(props: DashboardProps) {
 			</ul>
 			
 			{
-				showTaskDialog && (<TaskPage setShowTaskDialog={setShowTaskDialog}/>)
+				showTaskDialog
+				&& (
+					<TaskPage
+						setShowTaskDialog={setShowTaskDialog}
+						setTaskList={setTaskList}
+						task={task}
+					/>
+					)
 			}
 		</div>
 	)

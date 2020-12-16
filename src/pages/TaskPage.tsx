@@ -2,6 +2,7 @@ import React, {CSSProperties, useState} from 'react';
 import {useAuth} from "../use-auth";
 import "./TaskPage.css";
 import axios from "axios";
+import {Task} from "../entities/Task";
 
 const SAVE_TASK_URL = process.env.NODE_ENV !== "production" ?
 	'http://localhost:5037/savetask' :
@@ -51,15 +52,18 @@ const styles: StylesDictionary = {
 
 interface TaskPageProps {
 	setShowTaskDialog: any;
+	setTaskList: any;
+	task: Task;
 }
 
 export default function TaskPage(props: TaskPageProps) {
 	
-	const { setShowTaskDialog } = props;
+	const { setShowTaskDialog, setTaskList, task } = props;
 	let auth: any = useAuth();
-	const [ taskName, setTaskName ] = useState<string>('');
-	const [ groupName, setGroupName ] = useState<string>('');
+	const [ taskName, setTaskName ] = useState<string>(task.taskName);
+	const [ groupName, setGroupName ] = useState<string>(task.groupName);
 	
+	console.log(taskName);
 	
 	async function saveTask(event: any) {
 		
@@ -68,16 +72,17 @@ export default function TaskPage(props: TaskPageProps) {
 		console.log(taskName);
 		console.log(groupName);
 		
+		setShowTaskDialog(false);
+		
 		await axios.post(SAVE_TASK_URL,
 			{taskName: taskName, groupName: groupName},
-			{
-				headers: {
+			{ headers: {
 					"Accept": "application/json",
 					Authorization: `Bearer ${auth.user.token}`
 				},
 			}).then((response) => {
 				console.log(response);
-				//return response.data;
+				setTaskList(response.data);
 			}).catch(error => {
 				console.error('Error:', error);
 			});
