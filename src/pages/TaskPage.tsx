@@ -63,7 +63,7 @@ export default function TaskPage(props: TaskPageProps) {
 	const [ taskName, setTaskName ] = useState<string>(task.taskName);
 	const [ groupName, setGroupName ] = useState<string>(task.groupName);
 	
-	console.log(taskName);
+	//console.log(taskName);
 	
 	async function saveTask(event: any) {
 		

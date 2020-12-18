@@ -24,6 +24,8 @@ export default function Dashboard(props: DashboardProps) {
 	
 	//console.dir(auth.user.token);
 	
+	//TODO: Add page for groups
+	
 	useEffect(() => {
 		
 		axios.get(GET_TASKS_URL,
@@ -49,7 +51,7 @@ export default function Dashboard(props: DashboardProps) {
 			<button
 				className="btn"
 				key={"addButton"}
-				onClick={() => setShowTaskDialog(!showTaskDialog)}
+				onClick={() => openTaskDialog({id: undefined, taskName: "", groupName: ""})}
 			>
 				<i className="material-icons">add</i>
 			</button>
@@ -59,7 +61,7 @@ export default function Dashboard(props: DashboardProps) {
 	
 	
 	const openTaskDialog = (task: Task) => {
-		console.dir(task);
+		//console.dir(task);
 		setTask(task);
 		setShowTaskDialog(true);
 	}
