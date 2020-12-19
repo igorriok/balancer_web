@@ -26,11 +26,10 @@
   flex-direction: column;
   align-items: center;
   background-color: rgba(254, 254, 254, 0.9);
-  border: 1px solid #888;
-  width: 30%;
+  /*border: 1px solid #888;*/
   max-width: 600px;
-  min-width: 400px;
   border-radius: 4px;
+  margin: 5%;
 }
 
 /* Full-width inputs */

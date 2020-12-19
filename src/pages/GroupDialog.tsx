@@ -13,6 +13,7 @@ const groupList: string[] = ['solonari', 'daniliuc', 'igor+ida'];
 interface StylesDictionary {
 	[Key: string]: CSSProperties;
 }
+
 const styles: StylesDictionary = {
 	taskPage: {
 		position: "fixed",
@@ -25,23 +26,23 @@ const styles: StylesDictionary = {
 		backgroundColor: 'rgba(21,33,60,0.8)',
 		display: "flex",
 		flexDirection: "column",
-		justifyContent: "flex-start",
+		justifyContent: "center",
 		alignItems: "center",
 		//paddingTop: '5%'
-		
 	},
 	container: {
 		//padding: '0% 25% 5% 25%',
 		padding: '0 1% 0 1%',
 		display: "flex",
 		flexDirection: "column",
+		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: 'rgba(254, 254, 254, 0.9)',
 		margin: '5% 0 0 0',
 		border: '1px solid #888',
-		width: '20%',
+		width: '95%',
 		maxWidth: '600px',
-		minWidth: '400px',
+		//minWidth: '400px',
 		borderRadius: '8px',
 	},
 	title: {
@@ -50,18 +51,18 @@ const styles: StylesDictionary = {
 }
 
 
-interface TaskPageProps {
-	setShowTaskDialog: any;
-	setTaskList: any;
-	task: Task;
+interface GroupsPageProps {
+	setShowGroupDialog: any;
+	setGroupList: any;
+	group: Task;
 }
 
-export default function GroupDialog(props: TaskPageProps) {
+export default function GroupDialog(props: GroupsPageProps) {
 	
-	const { setShowTaskDialog, setTaskList, task } = props;
+	const { setShowGroupDialog, setGroupList, group } = props;
 	let auth: any = useAuth();
-	const [ taskName, setTaskName ] = useState<string>(task.taskName);
-	const [ groupName, setGroupName ] = useState<string>(task.groupName);
+	const [ taskName, setTaskName ] = useState<string>(group.taskName);
+	const [ groupName, setGroupName ] = useState<string>(group.groupName);
 	
 	//console.log(taskName);
 	
@@ -72,7 +73,7 @@ export default function GroupDialog(props: TaskPageProps) {
 		console.log(taskName);
 		console.log(groupName);
 		
-		setShowTaskDialog(false);
+		setShowGroupDialog(false);
 		
 		await axios.post(SAVE_TASK_URL,
 			{taskName: taskName, groupName: groupName},
@@ -82,7 +83,7 @@ export default function GroupDialog(props: TaskPageProps) {
 				},
 			}).then((response) => {
 				console.log(response);
-				setTaskList(response.data);
+				setGroupList(response.data);
 			}).catch(error => {
 				console.error('Error:', error);
 			});
@@ -101,7 +102,7 @@ export default function GroupDialog(props: TaskPageProps) {
 						//style={styles.closeButton}
 						className={"close"}
 						title="Close"
-						onClick={() => setShowTaskDialog(false)}
+						onClick={() => setShowGroupDialog(false)}
 					>
 						<i className="material-icons">clear</i>
 					</div>

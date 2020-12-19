@@ -90,9 +90,9 @@ export default function GroupsPage(props: DashboardProps) {
 				showTaskDialog
 				&& (
 					<GroupDialog
-						setShowTaskDialog={setShowTaskDialog}
-						setTaskList={setTaskList}
-						task={task}
+						setShowGroupDialog={setShowTaskDialog}
+						setGroupList={setTaskList}
+						group={task}
 					/>
 					)
 			}

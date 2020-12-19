@@ -25,23 +25,23 @@ const styles: StylesDictionary = {
 		backgroundColor: 'rgba(21,33,60,0.8)',
 		display: "flex",
 		flexDirection: "column",
-		justifyContent: "flex-start",
+		justifyContent: "center",
 		alignItems: "center",
 		//paddingTop: '5%'
-		
 	},
 	container: {
 		//padding: '0% 25% 5% 25%',
 		padding: '0 1% 0 1%',
 		display: "flex",
 		flexDirection: "column",
+		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: 'rgba(254, 254, 254, 0.9)',
 		margin: '5% 0 0 0',
 		border: '1px solid #888',
-		width: '20%',
+		width: '95%',
 		maxWidth: '600px',
-		minWidth: '400px',
+		//minWidth: '400px',
 		borderRadius: '8px',
 	},
 	title: {
