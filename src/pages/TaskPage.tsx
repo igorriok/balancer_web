@@ -1,14 +1,19 @@
-import React, {CSSProperties, useState} from 'react';
+import React, {CSSProperties, useEffect, useState} from 'react';
 import {useAuth} from "../use-auth";
 import "./TaskPage.css";
 import axios from "axios";
 import {Task} from "../entities/Task";
+import {Group} from "../entities/Group";
+
+
 
 const SAVE_TASK_URL = process.env.NODE_ENV !== "production" ?
 	'http://localhost:5037/savetask' :
 	'http://178.168.41.217:5037/savetask';
+const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
+	'http://localhost:5037/groups' :
+	'http://178.168.41.217:5037/groups';
 
-const groupList: string[] = ['solonari', 'daniliuc', 'igor+ida'];
 
 interface StylesDictionary {
 	[Key: string]: CSSProperties;
@@ -45,7 +50,7 @@ const styles: StylesDictionary = {
 		borderRadius: '8px',
 	},
 	title: {
-		margin: '0',
+		margin: '0 0 2vh 0',
 	}
 }
 
@@ -61,21 +66,41 @@ export default function TaskPage(props: TaskPageProps) {
 	const { setShowTaskDialog, setTaskList, task } = props;
 	let auth: any = useAuth();
 	const [ taskName, setTaskName ] = useState<string>(task.taskName);
-	const [ groupName, setGroupName ] = useState<string>(task.groupName);
+	const [ groupId, setGroupId ] = useState<number>(task.groupId);
+	const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: ""}]);
 	
 	//console.log(taskName);
+	
+	useEffect(() => {
+		
+		axios.get(GET_TASKS_URL,
+			{
+				headers: {
+					"Accept": "application/json",
+					Authorization: `Bearer ${auth.user.token}`
+				},
+			}).then((response) => {
+			//console.log(response);
+			setGroupList(response.data);
+			//return response.data;
+		}).catch(error => {
+			console.error('Error:', error);
+		});
+		
+	},[auth.user.token]);
+	
 	
 	async function saveTask(event: any) {
 		
 		event.preventDefault();
 		
 		console.log(taskName);
-		console.log(groupName);
+		console.log(groupId);
 		
 		setShowTaskDialog(false);
 		
 		await axios.post(SAVE_TASK_URL,
-			{taskName: taskName, groupName: groupName},
+			{taskName: taskName, groupId: groupId},
 			{ headers: {
 					"Accept": "application/json",
 					Authorization: `Bearer ${auth.user.token}`
@@ -91,12 +116,13 @@ export default function TaskPage(props: TaskPageProps) {
 	
 	//console.dir(auth.user.token);
 	
+	
 	return (
 		<div id="taskPage" style={styles.taskPage}>
 			
 			<form onSubmit={saveTask} style={styles.container} autoComplete="on">
 				
-				<div className={"closeRow"}>
+				<div className={"toolBar"}>
 					<div
 						//style={styles.closeButton}
 						className={"close"}
@@ -107,7 +133,9 @@ export default function TaskPage(props: TaskPageProps) {
 					</div>
 				</div>
 			
-				<h1 style={styles.title}>New task</h1>
+				<h1 style={styles.title}>
+					Task details
+				</h1>
 				
 				<label htmlFor="taskName">
 					<b>Task name: </b>
@@ -126,15 +154,16 @@ export default function TaskPage(props: TaskPageProps) {
 					<select
 						placeholder="Select group name"
 						name="groupName"
-						value={groupName}
-						onChange={(e) => setGroupName(e.target.value)}
+						value={groupId}
+						// @ts-ignore
+						onChange={(e) => setGroupId(e.target.value)}
 					>
 						<option value=""/>
 						{
-							groupList.map(group => {
+							groupList.map((group: Group) => {
 								return (
-									<option value={group} key={group}>
-										{group}
+									<option value={group.id} key={group.id}>
+										{group.groupName}
 									</option>
 								)
 							})

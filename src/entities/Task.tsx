@@ -1,5 +1,5 @@
 export interface Task {
-	id: number | undefined;
+	id: number;
 	taskName: string;
-	groupName: string;
+	groupId: number;
 }

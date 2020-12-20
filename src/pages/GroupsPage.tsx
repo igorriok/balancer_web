@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useAuth} from "../use-auth";
 import axios from "axios";
-import {Task} from "../entities/Task";
 import GroupDialog from "./GroupDialog";
+import {Group} from "../entities/Group";
 
 
 const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
-	'http://localhost:5037/tasks' :
-	'http://178.168.41.217:5037/tasks';
+	'http://localhost:5037/groups' :
+	'http://178.168.41.217:5037/groups';
 
 
 interface DashboardProps {
@@ -18,13 +18,11 @@ export default function GroupsPage(props: DashboardProps) {
 	
 	let auth: any = useAuth();
 	const { setPageTools } = props;
-	const [ taskList, setTaskList ] = useState<Task[]>([]);
-	const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
-	const [ task, setTask ] = useState<Task>({id: undefined, taskName: "", groupName: ""});
+	const [ groupList, setGroupList ] = useState<Group[]>([]);
+	const [ showGroupDialog, setShowGroupDialog ] = useState<boolean>(false);
+	const [ group, setGroup ] = useState<Group>({id: undefined, groupName: ""});
 	
 	//console.dir(auth.user.token);
-	
-	//TODO: Add page for groups
 	
 	useEffect(() => {
 		
@@ -37,7 +35,7 @@ export default function GroupsPage(props: DashboardProps) {
 			}).then((response) => {
 				console.log(response);
 				
-				setTaskList(response.data);
+				setGroupList(response.data);
 				//return response.data;
 			}).catch(error => {
 				console.error('Error:', error);
@@ -51,19 +49,19 @@ export default function GroupsPage(props: DashboardProps) {
 			<button
 				className="btn"
 				key={"addButton"}
-				onClick={() => openTaskDialog({id: undefined, taskName: "", groupName: ""})}
+				onClick={() => openGroupDialog({id: undefined, groupName: ""})}
 			>
 				<i className="material-icons">add</i>
 			</button>
 		]);
 		
-	},[setPageTools, showTaskDialog]);
+	},[setPageTools, showGroupDialog]);
 	
 	
-	const openTaskDialog = (task: Task) => {
+	const openGroupDialog = (group: Group) => {
 		//console.dir(task);
-		setTask(task);
-		setShowTaskDialog(true);
+		setGroup(group);
+		setShowGroupDialog(true);
 	}
 	
 	
@@ -75,24 +73,24 @@ export default function GroupsPage(props: DashboardProps) {
 			
 			<ul>
 				{
-					taskList.map((task: Task) =>
+					groupList.map((group: Group) =>
 							<li
-								key={task.id}
-								onClick={() => openTaskDialog(task)}
+								key={group.id}
+								onClick={() => openGroupDialog(group)}
 							>
-								{task.taskName}
+								{group.groupName}
 							</li>
 					)
 				}
 			</ul>
 			
 			{
-				showTaskDialog
+				showGroupDialog
 				&& (
 					<GroupDialog
-						setShowGroupDialog={setShowTaskDialog}
-						setGroupList={setTaskList}
-						group={task}
+						setShowGroupDialog={setShowGroupDialog}
+						setGroupList={setGroupList}
+						group={group}
 					/>
 					)
 			}

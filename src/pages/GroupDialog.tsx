@@ -1,14 +1,15 @@
-import React, {CSSProperties, useState} from 'react';
+import React, {CSSProperties, FormEvent, useState} from 'react';
 import {useAuth} from "../use-auth";
 import "./TaskPage.css";
 import axios from "axios";
-import {Task} from "../entities/Task";
+import {Group} from "../entities/Group";
 
-const SAVE_TASK_URL = process.env.NODE_ENV !== "production" ?
-	'http://localhost:5037/savetask' :
-	'http://178.168.41.217:5037/savetask';
 
-const groupList: string[] = ['solonari', 'daniliuc', 'igor+ida'];
+
+const SAVE_GROUP_URL = process.env.NODE_ENV !== "production" ?
+	'http://localhost:5037/savegroup' :
+	'http://178.168.41.217:5037/savegroup';
+
 
 interface StylesDictionary {
 	[Key: string]: CSSProperties;
@@ -54,29 +55,27 @@ const styles: StylesDictionary = {
 interface GroupsPageProps {
 	setShowGroupDialog: any;
 	setGroupList: any;
-	group: Task;
+	group: Group;
 }
 
 export default function GroupDialog(props: GroupsPageProps) {
 	
 	const { setShowGroupDialog, setGroupList, group } = props;
 	let auth: any = useAuth();
-	const [ taskName, setTaskName ] = useState<string>(group.taskName);
 	const [ groupName, setGroupName ] = useState<string>(group.groupName);
 	
 	//console.log(taskName);
 	
-	async function saveTask(event: any) {
+	async function saveGroup(event: FormEvent) {
 		
 		event.preventDefault();
 		
-		console.log(taskName);
 		console.log(groupName);
 		
 		setShowGroupDialog(false);
 		
-		await axios.post(SAVE_TASK_URL,
-			{taskName: taskName, groupName: groupName},
+		await axios.post(SAVE_GROUP_URL,
+			{groupName: groupName},
 			{ headers: {
 					"Accept": "application/json",
 					Authorization: `Bearer ${auth.user.token}`
@@ -95,7 +94,7 @@ export default function GroupDialog(props: GroupsPageProps) {
 	return (
 		<div id="taskPage" style={styles.taskPage}>
 			
-			<form onSubmit={saveTask} style={styles.container} autoComplete="on">
+			<form onSubmit={saveGroup} style={styles.container} autoComplete="on">
 				
 				<div className={"closeRow"}>
 					<div
@@ -112,41 +111,20 @@ export default function GroupDialog(props: GroupsPageProps) {
 					Group
 				</h1>
 				
-				<label htmlFor="taskName">
-					<b>Task name: </b>
+				<label htmlFor="groupName">
+					<b>Group name: </b>
 					<input
 						type="text"
-						placeholder="Enter task name"
-						name="taskName"
+						placeholder="Enter group name"
+						name="groupName"
 						required
-						value={taskName}
-						onChange={(e) => setTaskName(e.target.value)}
+						value={groupName}
+						onChange={(e) => setGroupName(e.target.value)}
 					/>
 				</label>
 				
-				<label htmlFor="groupName">
-					<b>Group: </b>
-					<select
-						placeholder="Select group name"
-						name="groupName"
-						value={groupName}
-						onChange={(e) => setGroupName(e.target.value)}
-					>
-						<option value=""/>
-						{
-							groupList.map(group => {
-								return (
-									<option value={group} key={group}>
-										{group}
-									</option>
-								)
-							})
-						}
-					</select>
-				</label>
-				
 				<button type="submit" className="confirmButton">
-					Done
+					Save
 				</button>
 			</form>
 			

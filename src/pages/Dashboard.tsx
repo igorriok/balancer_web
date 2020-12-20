@@ -20,11 +20,9 @@ export default function Dashboard(props: DashboardProps) {
 	const { setPageTools } = props;
 	const [ taskList, setTaskList ] = useState<Task[]>([]);
 	const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
-	const [ task, setTask ] = useState<Task>({id: undefined, taskName: "", groupName: ""});
+	const [ task, setTask ] = useState<Task>({id: 0, taskName: "", groupId: 0});
 	
 	//console.dir(auth.user.token);
-	
-	//TODO: Add page for groups
 	
 	useEffect(() => {
 		
@@ -51,7 +49,7 @@ export default function Dashboard(props: DashboardProps) {
 			<button
 				className="btn"
 				key={"addButton"}
-				onClick={() => openTaskDialog({id: undefined, taskName: "", groupName: ""})}
+				onClick={() => openTaskDialog({id: 0, taskName: "", groupId: 0})}
 			>
 				<i className="material-icons">add</i>
 			</button>
