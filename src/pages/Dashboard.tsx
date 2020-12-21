@@ -20,7 +20,7 @@ export default function Dashboard(props: DashboardProps) {
 	const { setPageTools } = props;
 	const [ taskList, setTaskList ] = useState<Task[]>([]);
 	const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
-	const [ task, setTask ] = useState<Task>({id: 0, taskName: "", groupId: 0});
+	const [ task, setTask ] = useState<Task>({id: 0, taskName: "", addedDate: new Date(Date.now()), groupId: 0});
 	
 	//console.dir(auth.user.token);
 	
@@ -34,8 +34,8 @@ export default function Dashboard(props: DashboardProps) {
 				},
 			}).then((response) => {
 				console.log(response);
-				
-				setTaskList(response.data);
+			
+				updateTaskList(response.data);
 				//return response.data;
 			}).catch(error => {
 				console.error('Error:', error);
@@ -49,7 +49,7 @@ export default function Dashboard(props: DashboardProps) {
 			<button
 				className="btn"
 				key={"addButton"}
-				onClick={() => openTaskDialog({id: 0, taskName: "", groupId: 0})}
+				onClick={() => openTaskDialog({id: 0, taskName: "", addedDate: new Date(Date.now()), groupId: 0})}
 			>
 				<i className="material-icons">add</i>
 			</button>
@@ -65,31 +65,41 @@ export default function Dashboard(props: DashboardProps) {
 	}
 	
 	
+	const updateTaskList = (tasks: Task[]) => {
+		
+		tasks.sort((a: Task, b: Task) => {
+			return new Date(b.addedDate).valueOf() - new Date(a.addedDate).valueOf();
+		});
+		
+		setTaskList(tasks);
+	}
+	
+	
 	return (
 		<div>
 			<h2>
 				Dashboard
 			</h2>
 			
-			<ul>
+			<div>
 				{
 					taskList.map((task: Task) =>
-							<li
+							<h5
 								key={task.id}
 								onClick={() => openTaskDialog(task)}
 							>
 								{task.taskName}
-							</li>
+							</h5>
 					)
 				}
-			</ul>
+			</div>
 			
 			{
 				showTaskDialog
 				&& (
 					<TaskPage
 						setShowTaskDialog={setShowTaskDialog}
-						setTaskList={setTaskList}
+						setTaskList={updateTaskList}
 						task={task}
 					/>
 					)

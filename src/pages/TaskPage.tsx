@@ -13,6 +13,9 @@ const SAVE_TASK_URL = process.env.NODE_ENV !== "production" ?
 const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
 	'http://localhost:5037/groups' :
 	'http://178.168.41.217:5037/groups';
+const DELETE_TASKS_URL = process.env.NODE_ENV !== "production" ?
+	'http://localhost:5037/deletetask/' :
+	'http://178.168.41.217:5037/deletetask/';
 
 
 interface StylesDictionary {
@@ -106,8 +109,31 @@ export default function TaskPage(props: TaskPageProps) {
 					Authorization: `Bearer ${auth.user.token}`
 				},
 			}).then((response) => {
+				
 				console.log(response);
+				
 				setTaskList(response.data);
+				
+			}).catch(error => {
+				console.error('Error:', error);
+			});
+	}
+	
+	const deleteTask = async () => {
+		
+		setShowTaskDialog(false);
+		
+		await axios.delete(DELETE_TASKS_URL + task.id,
+			{ headers: {
+					"Accept": "application/json",
+					Authorization: `Bearer ${auth.user.token}`
+				},
+			}).then((response) => {
+				
+				console.log(response);
+				
+				setTaskList(response.data);
+				
 			}).catch(error => {
 				console.error('Error:', error);
 			});
@@ -123,6 +149,16 @@ export default function TaskPage(props: TaskPageProps) {
 			<form onSubmit={saveTask} style={styles.container} autoComplete="on">
 				
 				<div className={"toolBar"}>
+					
+					<div
+						//style={styles.closeButton}
+						className={"close"}
+						title="Delete"
+						onClick={() => deleteTask()}
+					>
+						<i className="material-icons">delete</i>
+					</div>
+					
 					<div
 						//style={styles.closeButton}
 						className={"close"}
@@ -131,6 +167,7 @@ export default function TaskPage(props: TaskPageProps) {
 					>
 						<i className="material-icons">clear</i>
 					</div>
+					
 				</div>
 			
 				<h1 style={styles.title}>
