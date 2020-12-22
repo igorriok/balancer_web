@@ -3,6 +3,7 @@ import {useAuth} from "../use-auth";
 import axios from "axios";
 import {Task} from "../entities/Task";
 import TaskPage from "./TaskPage";
+import {Group} from "../entities/Group";
 
 
 const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
@@ -20,7 +21,8 @@ export default function Dashboard(props: DashboardProps) {
 	const { setPageTools } = props;
 	const [ taskList, setTaskList ] = useState<Task[]>([]);
 	const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
-	const [ task, setTask ] = useState<Task>({id: 0, taskName: "", addedDate: new Date(Date.now()), groupId: 0});
+	const [ task, setTask ] = useState<Task>({id: 0, taskName: "", addedDate: new Date(Date.now()), groupId: 0, groupName: ""});
+	const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: ""}]);
 	
 	//console.dir(auth.user.token);
 	
@@ -49,7 +51,7 @@ export default function Dashboard(props: DashboardProps) {
 			<button
 				className="btn"
 				key={"addButton"}
-				onClick={() => openTaskDialog({id: 0, taskName: "", addedDate: new Date(Date.now()), groupId: 0})}
+				onClick={() => openTaskDialog({id: 0, taskName: "", addedDate: new Date(Date.now()), groupId: 0, groupName: ""})}
 			>
 				<i className="material-icons">add</i>
 			</button>
@@ -72,6 +74,15 @@ export default function Dashboard(props: DashboardProps) {
 		});
 		
 		setTaskList(tasks);
+		
+		// filter unique groups from tasks list
+		const groups: Group[] = tasks.map((task: Task) => {
+			return { id: task.groupId, groupName: task.groupName};
+		}).filter((value, index, self) => index === self.findIndex((group) => (
+				group.id === value.id && group.groupName === value.groupName
+			)));
+		
+		setGroupList(groups);
 	}
 	
 	
@@ -88,7 +99,7 @@ export default function Dashboard(props: DashboardProps) {
 								key={task.id}
 								onClick={() => openTaskDialog(task)}
 							>
-								{task.taskName}
+								{task.taskName + " - " + task.groupName}
 							</h5>
 					)
 				}
@@ -101,6 +112,7 @@ export default function Dashboard(props: DashboardProps) {
 						setShowTaskDialog={setShowTaskDialog}
 						setTaskList={updateTaskList}
 						task={task}
+						groupList={groupList}
 					/>
 					)
 			}

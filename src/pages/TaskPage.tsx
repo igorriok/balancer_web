@@ -10,10 +10,10 @@ import {Group} from "../entities/Group";
 const SAVE_TASK_URL = process.env.NODE_ENV !== "production" ?
 	'http://localhost:5037/savetask' :
 	'http://178.168.41.217:5037/savetask';
-const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
+const GET_GROUPS_URL = process.env.NODE_ENV !== "production" ?
 	'http://localhost:5037/groups' :
 	'http://178.168.41.217:5037/groups';
-const DELETE_TASKS_URL = process.env.NODE_ENV !== "production" ?
+const DELETE_TASK_URL = process.env.NODE_ENV !== "production" ?
 	'http://localhost:5037/deletetask/' :
 	'http://178.168.41.217:5037/deletetask/';
 
@@ -62,21 +62,22 @@ interface TaskPageProps {
 	setShowTaskDialog: any;
 	setTaskList: any;
 	task: Task;
+	groupList: Group[];
 }
 
 export default function TaskPage(props: TaskPageProps) {
 	
-	const { setShowTaskDialog, setTaskList, task } = props;
+	const { setShowTaskDialog, setTaskList, task, groupList } = props;
 	let auth: any = useAuth();
 	const [ taskName, setTaskName ] = useState<string>(task.taskName);
 	const [ groupId, setGroupId ] = useState<number>(task.groupId);
-	const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: ""}]);
+	//const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: ""}]);
 	
 	//console.log(taskName);
 	
-	useEffect(() => {
+	/*useEffect(() => {
 		
-		axios.get(GET_TASKS_URL,
+		axios.get(GET_GROUPS_URL,
 			{
 				headers: {
 					"Accept": "application/json",
@@ -90,7 +91,7 @@ export default function TaskPage(props: TaskPageProps) {
 			console.error('Error:', error);
 		});
 		
-	},[auth.user.token]);
+	},[auth.user.token]);*/
 	
 	
 	async function saveTask(event: any) {
@@ -123,7 +124,7 @@ export default function TaskPage(props: TaskPageProps) {
 		
 		setShowTaskDialog(false);
 		
-		await axios.delete(DELETE_TASKS_URL + task.id,
+		await axios.delete(DELETE_TASK_URL + task.id,
 			{ headers: {
 					"Accept": "application/json",
 					Authorization: `Bearer ${auth.user.token}`

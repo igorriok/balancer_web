@@ -9,6 +9,9 @@ import {Group} from "../entities/Group";
 const SAVE_GROUP_URL = process.env.NODE_ENV !== "production" ?
 	'http://localhost:5037/savegroup' :
 	'http://178.168.41.217:5037/savegroup';
+const DELETE_GROUP_URL = process.env.NODE_ENV !== "production" ?
+	'http://localhost:5037/deletegroup/' :
+	'http://178.168.41.217:5037/deletegroup/';
 
 
 interface StylesDictionary {
@@ -88,6 +91,23 @@ export default function GroupDialog(props: GroupsPageProps) {
 			});
 	}
 	
+	async function deleteGroup() {
+		
+		setShowGroupDialog(false);
+		
+		await axios.delete(DELETE_GROUP_URL + group.id,
+			{ headers: {
+					"Accept": "application/json",
+					Authorization: `Bearer ${auth.user.token}`
+				},
+			}).then((response) => {
+			console.log(response);
+			setGroupList(response.data);
+		}).catch(error => {
+			console.error('Error:', error);
+		});
+	}
+	
 	
 	//console.dir(auth.user.token);
 	
@@ -96,7 +116,17 @@ export default function GroupDialog(props: GroupsPageProps) {
 			
 			<form onSubmit={saveGroup} style={styles.container} autoComplete="on">
 				
-				<div className={"closeRow"}>
+				<div className={"toolBar"}>
+					
+					<div
+						//style={styles.closeButton}
+						className={"close"}
+						title="Delete"
+						onClick={() => deleteGroup()}
+					>
+						<i className="material-icons">delete</i>
+					</div>
+					
 					<div
 						//style={styles.closeButton}
 						className={"close"}
@@ -105,6 +135,7 @@ export default function GroupDialog(props: GroupsPageProps) {
 					>
 						<i className="material-icons">clear</i>
 					</div>
+					
 				</div>
 			
 				<h1 style={styles.title}>
@@ -122,6 +153,12 @@ export default function GroupDialog(props: GroupsPageProps) {
 						onChange={(e) => setGroupName(e.target.value)}
 					/>
 				</label>
+				
+				<div id={"participants"}>
+					{
+						// TODO: list of participants
+					}
+				</div>
 				
 				<button type="submit" className="confirmButton">
 					Save

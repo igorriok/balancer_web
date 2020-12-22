@@ -71,18 +71,18 @@ export default function GroupsPage(props: DashboardProps) {
 				Groups
 			</h2>
 			
-			<ul>
+			<div>
 				{
 					groupList.map((group: Group) =>
-							<li
+							<h5
 								key={group.id}
 								onClick={() => openGroupDialog(group)}
 							>
 								{group.groupName}
-							</li>
+							</h5>
 					)
 				}
-			</ul>
+			</div>
 			
 			{
 				showGroupDialog

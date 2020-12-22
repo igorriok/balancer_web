@@ -3,4 +3,5 @@ export interface Task {
 	taskName: string;
 	addedDate: Date;
 	groupId: number;
+	groupName: string;
 }
