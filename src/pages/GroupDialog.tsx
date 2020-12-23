@@ -42,7 +42,7 @@ const styles: StylesDictionary = {
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: 'rgba(254, 254, 254, 0.9)',
-		margin: '5% 0 0 0',
+		margin: '0',
 		border: '1px solid #888',
 		width: '95%',
 		maxWidth: '600px',
@@ -51,6 +51,9 @@ const styles: StylesDictionary = {
 	},
 	title: {
 		margin: '0',
+	},
+	participantsTitle: {
+		margin: 8,
 	}
 }
 
@@ -154,9 +157,17 @@ export default function GroupDialog(props: GroupsPageProps) {
 					/>
 				</label>
 				
+				<h4 style={styles.participantsTitle}>
+					Participants:
+				</h4>
+				
 				<div id={"participants"}>
 					{
-						// TODO: list of participants
+						group.participants.map(participant => (
+							<div key={participant.email}>
+								{participant.nickName}
+							</div>
+						))
 					}
 				</div>
 				

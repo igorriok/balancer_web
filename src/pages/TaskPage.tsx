@@ -45,7 +45,7 @@ const styles: StylesDictionary = {
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: 'rgba(254, 254, 254, 0.9)',
-		margin: '5% 0 0 0',
+		margin: '0',
 		border: '1px solid #888',
 		width: '95%',
 		maxWidth: '600px',

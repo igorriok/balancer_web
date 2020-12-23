@@ -20,7 +20,7 @@ export default function GroupsPage(props: DashboardProps) {
 	const { setPageTools } = props;
 	const [ groupList, setGroupList ] = useState<Group[]>([]);
 	const [ showGroupDialog, setShowGroupDialog ] = useState<boolean>(false);
-	const [ group, setGroup ] = useState<Group>({id: undefined, groupName: ""});
+	const [ group, setGroup ] = useState<Group>({id: undefined, groupName: "", participants: []});
 	
 	//console.dir(auth.user.token);
 	
@@ -49,7 +49,7 @@ export default function GroupsPage(props: DashboardProps) {
 			<button
 				className="btn"
 				key={"addButton"}
-				onClick={() => openGroupDialog({id: undefined, groupName: ""})}
+				onClick={() => openGroupDialog({ id: undefined, groupName: "", participants: [] })}
 			>
 				<i className="material-icons">add</i>
 			</button>
