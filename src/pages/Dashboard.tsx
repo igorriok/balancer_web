@@ -22,7 +22,7 @@ export default function Dashboard(props: DashboardProps) {
 	const [ taskList, setTaskList ] = useState<Task[]>([]);
 	const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
 	const [ task, setTask ] = useState<Task>({id: 0, taskName: "", addedDate: new Date(Date.now()), groupId: 0, groupName: ""});
-	const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: "", participants: []}]);
+	//const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: "", participants: []}]);
 	
 	//console.dir(auth.user.token);
 	
@@ -76,13 +76,13 @@ export default function Dashboard(props: DashboardProps) {
 		setTaskList(tasks);
 		
 		// filter unique groups from tasks list
-		const groups: Group[] = tasks.map((task: Task) => {
+		/*const groups: Group[] = tasks.map((task: Task) => {
 			return { id: task.groupId, groupName: task.groupName, participants: [] };
 		}).filter((value, index, self) => index === self.findIndex((group) => (
 				group.id === value.id && group.groupName === value.groupName
 			)));
 		
-		setGroupList(groups);
+		setGroupList(groups);*/
 	}
 	
 	
@@ -112,7 +112,6 @@ export default function Dashboard(props: DashboardProps) {
 						setShowTaskDialog={setShowTaskDialog}
 						setTaskList={updateTaskList}
 						task={task}
-						groupList={groupList}
 					/>
 					)
 			}

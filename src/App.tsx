@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/Singup";
 import Dashboard from "./pages/Dashboard";
 import GroupsPage from "./pages/GroupsPage";
+import Settings from "./pages/Settings";
 
 
 
@@ -58,6 +59,7 @@ function App() {
                       <div className="menuDropdownContent">
                         <Link to={"/"}>Dashboard</Link>
                         <Link to={"/groups"}>Groups</Link>
+                        <Link to={"/settings"}>Settings</Link>
                       </div>
                   )
                 }
@@ -93,6 +95,10 @@ function App() {
                 <GroupsPage
                     setPageTools={setPageTools}
                 />
+              </PrivateRoute>
+  
+              <PrivateRoute exact path="/settings">
+                <Settings/>
               </PrivateRoute>
               
               <Route path="*">

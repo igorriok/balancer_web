@@ -62,20 +62,19 @@ interface TaskPageProps {
 	setShowTaskDialog: any;
 	setTaskList: any;
 	task: Task;
-	groupList: Group[];
 }
 
 export default function TaskPage(props: TaskPageProps) {
 	
-	const { setShowTaskDialog, setTaskList, task, groupList } = props;
+	const { setShowTaskDialog, setTaskList, task } = props;
 	let auth: any = useAuth();
 	const [ taskName, setTaskName ] = useState<string>(task.taskName);
 	const [ groupId, setGroupId ] = useState<number>(task.groupId);
-	//const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: ""}]);
+	const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: "", participants: []}]);
 	
 	//console.log(taskName);
 	
-	/*useEffect(() => {
+	useEffect(() => {
 		
 		axios.get(GET_GROUPS_URL,
 			{
@@ -91,7 +90,7 @@ export default function TaskPage(props: TaskPageProps) {
 			console.error('Error:', error);
 		});
 		
-	},[auth.user.token]);*/
+	},[auth.user.token]);
 	
 	
 	async function saveTask(event: any) {
