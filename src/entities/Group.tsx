@@ -1,7 +1,7 @@
-import {Paticipant} from "./Paticipant";
+import {Participant} from "./Participant";
 
 export interface Group {
 	id: number | undefined;
 	groupName: string;
-	participants: Paticipant[];
+	participants: Participant[];
 }

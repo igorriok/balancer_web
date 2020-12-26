@@ -52,9 +52,6 @@ const styles: StylesDictionary = {
 		//minWidth: '400px',
 		borderRadius: '8px',
 	},
-	title: {
-		margin: '0 0 2vh 0',
-	}
 }
 
 

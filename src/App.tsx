@@ -15,6 +15,7 @@ function App() {
   
   const [ pageTools, setPageTools ] = useState<JSX.Element[]>([]);
   const [ openMenu, setOpenMenu ] = useState<boolean>(false);
+  const [ pageName, setPageName ] = useState<JSX.Element>(<div/>);
   
   
   function handleClick(e: MouseEvent) {
@@ -35,6 +36,15 @@ function App() {
       document.removeEventListener("click", handleClick);
     }
   },[]);
+  
+  
+  const pageNameElement = () => {
+    return (
+        <div>
+          { pageName }
+        </div>
+    )
+  }
   
   
   return (
@@ -63,8 +73,11 @@ function App() {
                       </div>
                   )
                 }
-                
               </div>
+              
+              {
+                pageName
+              }
       
               {
                 pageTools
@@ -88,17 +101,21 @@ function App() {
               <PrivateRoute exact path="/">
                 <Dashboard
                     setPageTools={setPageTools}
+                    setPageName={setPageName}
                 />
               </PrivateRoute>
               
               <PrivateRoute exact path="/groups">
                 <GroupsPage
                     setPageTools={setPageTools}
+                    setPageName={setPageName}
                 />
               </PrivateRoute>
   
               <PrivateRoute exact path="/settings">
-                <Settings/>
+                <Settings
+                    setPageName={setPageName}
+                />
               </PrivateRoute>
               
               <Route path="*">

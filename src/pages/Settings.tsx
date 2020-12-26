@@ -39,19 +39,34 @@ const styles: StylesDictionary = {
 		//minWidth: '400px',
 		borderRadius: '8px',
 	},
-	title: {
-		margin: '0 0 2vh 0',
-	}
+}
+
+interface SettingsProps {
+	setPageName: any;
 }
 
 
-
-
-export default function Settings() {
+export default function Settings(props: SettingsProps) {
 	
 	let auth: any = useAuth();
+	const { setPageName } = props;
 	const [ nickName, setNickName ] = useState<string>("");
 	
+	
+	
+	useEffect(() => {
+		
+		setPageName(
+			<h3 className={"pageName"}>
+				Settings
+			</h3>
+		);
+		
+		return () => {
+			setPageName(<div/>);
+		}
+		
+	},[]);
 	
 	useEffect(() => {
 		
@@ -102,10 +117,6 @@ export default function Settings() {
 		<div id="taskPage" style={styles.taskPage}>
 			
 			<form onSubmit={saveNickName} style={styles.container} autoComplete="on">
-				
-				<h1 style={styles.title}>
-					Settings
-				</h1>
 				
 				<label htmlFor="nickName">
 					<b>Nickname: </b>

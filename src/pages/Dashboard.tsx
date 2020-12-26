@@ -3,7 +3,6 @@ import {useAuth} from "../use-auth";
 import axios from "axios";
 import {Task} from "../entities/Task";
 import TaskPage from "./TaskPage";
-import {Group} from "../entities/Group";
 
 
 const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
@@ -13,18 +12,33 @@ const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
 
 interface DashboardProps {
 	setPageTools: any;
+	setPageName: any;
 }
 
 export default function Dashboard(props: DashboardProps) {
 	
 	let auth: any = useAuth();
-	const { setPageTools } = props;
+	const { setPageTools, setPageName } = props;
 	const [ taskList, setTaskList ] = useState<Task[]>([]);
 	const [ showTaskDialog, setShowTaskDialog ] = useState<boolean>(false);
 	const [ task, setTask ] = useState<Task>({id: 0, taskName: "", addedDate: new Date(Date.now()), groupId: 0, groupName: ""});
 	//const [ groupList, setGroupList ] = useState<Group[]>([{id: 0, groupName: "", participants: []}]);
 	
-	//console.dir(auth.user.token);
+	
+	useEffect(() => {
+		
+		setPageName(
+			<h3 className={"pageName"}>
+				Dashboard
+			</h3>
+		);
+		
+		return () => {
+			setPageName(<div/>);
+		}
+		
+	},[]);
+	
 	
 	useEffect(() => {
 		
@@ -88,9 +102,6 @@ export default function Dashboard(props: DashboardProps) {
 	
 	return (
 		<div>
-			<h2>
-				Dashboard
-			</h2>
 			
 			<div>
 				{

@@ -16,6 +16,11 @@
   color: white;
 }
 
+.pageName {
+  color: white;
+  margin: 0;
+}
+
 
 
 /* Login Page */
@@ -156,6 +161,7 @@ span.psw {
 #toolbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: 1200px;
 }

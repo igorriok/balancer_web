@@ -12,17 +12,31 @@ const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
 
 interface DashboardProps {
 	setPageTools: any;
+	setPageName: any;
 }
 
 export default function GroupsPage(props: DashboardProps) {
 	
 	let auth: any = useAuth();
-	const { setPageTools } = props;
+	const { setPageTools, setPageName } = props;
 	const [ groupList, setGroupList ] = useState<Group[]>([]);
 	const [ showGroupDialog, setShowGroupDialog ] = useState<boolean>(false);
 	const [ group, setGroup ] = useState<Group>({id: undefined, groupName: "", participants: []});
 	
-	//console.dir(auth.user.token);
+	
+	useEffect(() => {
+		
+		setPageName(
+			<h3 className={"pageName"}>
+				Groups
+			</h3>
+		);
+		
+		return () => {
+			setPageName(<div/>);
+		}
+		
+	},[]);
 	
 	useEffect(() => {
 		
@@ -67,9 +81,6 @@ export default function GroupsPage(props: DashboardProps) {
 	
 	return (
 		<div>
-			<h2>
-				Groups
-			</h2>
 			
 			<div>
 				{
