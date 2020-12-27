@@ -69,6 +69,7 @@ export default function GroupDialog(props: GroupsPageProps) {
 	const { setShowGroupDialog, setGroupList, group } = props;
 	let auth: any = useAuth();
 	const [ groupName, setGroupName ] = useState<string>(group.groupName);
+	const [ newParticipantEmail, setNewParticipantEmail ] = useState<string>("");
 	
 	//console.log(taskName);
 	
@@ -81,7 +82,7 @@ export default function GroupDialog(props: GroupsPageProps) {
 		setShowGroupDialog(false);
 		
 		await axios.post(SAVE_GROUP_URL,
-			{groupName: groupName},
+			{groupName: groupName, id: group.id},
 			{ headers: {
 					"Accept": "application/json",
 					Authorization: `Bearer ${auth.user.token}`
@@ -109,6 +110,16 @@ export default function GroupDialog(props: GroupsPageProps) {
 		}).catch(error => {
 			console.error('Error:', error);
 		});
+	}
+	
+	function addParticipant(event: React.KeyboardEvent<HTMLInputElement>) {
+		event.preventDefault();
+		
+		//console.dir(event);
+		
+		if (event.key === "Enter") {
+			group.participants.push({ email: newParticipantEmail, nickName: ""});
+		}
 	}
 	
 	
@@ -165,11 +176,23 @@ export default function GroupDialog(props: GroupsPageProps) {
 					{
 						group.participants.map(participant => (
 							<div key={participant.email}>
-								{participant.nickName}
+								{participant.email + " - " + participant.nickName}
 							</div>
 						))
 					}
 				</div>
+				
+				<label htmlFor="addParticipant">
+					<b>Add participant: </b>
+					<input
+						type="email"
+						placeholder="Enter participant's email"
+						name="addParticipant"
+						value={newParticipantEmail}
+						onChange={(e) => setNewParticipantEmail(e.target.value)}
+						onKeyUp={(e) => addParticipant(e)}
+					/>
+				</label>
 				
 				<button type="submit" className="confirmButton">
 					Save
