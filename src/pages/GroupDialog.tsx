@@ -1,8 +1,9 @@
-import React, {CSSProperties, FormEvent, useState} from 'react';
+import React, {CSSProperties, useState} from 'react';
 import {useAuth} from "../use-auth";
 import "./TaskPage.css";
 import axios from "axios";
 import {Group} from "../entities/Group";
+import {Participant} from "../entities/Participant";
 
 
 
@@ -70,19 +71,20 @@ export default function GroupDialog(props: GroupsPageProps) {
 	let auth: any = useAuth();
 	const [ groupName, setGroupName ] = useState<string>(group.groupName);
 	const [ newParticipantEmail, setNewParticipantEmail ] = useState<string>("");
+	const [ participants, setParticipants ] = useState<Participant[]>(group.participants);
 	
 	//console.log(taskName);
 	
-	async function saveGroup(event: FormEvent) {
+	async function saveGroup() {
 		
-		event.preventDefault();
+		//event.preventDefault();
 		
 		console.log(groupName);
 		
 		setShowGroupDialog(false);
 		
 		await axios.post(SAVE_GROUP_URL,
-			{groupName: groupName, id: group.id},
+			{groupName: groupName, id: group.id, participants: participants},
 			{ headers: {
 					"Accept": "application/json",
 					Authorization: `Bearer ${auth.user.token}`
@@ -118,8 +120,17 @@ export default function GroupDialog(props: GroupsPageProps) {
 		//console.dir(event);
 		
 		if (event.key === "Enter") {
-			group.participants.push({ email: newParticipantEmail, nickName: ""});
+			
+			const matchParticipants: Participant[] = participants.filter((participant: Participant) => participant.email === newParticipantEmail);
+			
+			if (matchParticipants?.length === 0) {
+				setParticipants(participants => [...participants, {
+					email: newParticipantEmail, nickName: ""
+				}]);
+			}
 		}
+		
+		console.dir(participants);
 	}
 	
 	
@@ -128,7 +139,7 @@ export default function GroupDialog(props: GroupsPageProps) {
 	return (
 		<div id="taskPage" style={styles.taskPage}>
 			
-			<form onSubmit={saveGroup} style={styles.container} autoComplete="on">
+			<div style={styles.container}>
 				
 				<div className={"toolBar"}>
 					
@@ -174,7 +185,7 @@ export default function GroupDialog(props: GroupsPageProps) {
 				
 				<div id={"participants"}>
 					{
-						group.participants.map(participant => (
+						participants.map(participant => (
 							<div key={participant.email}>
 								{participant.email + " - " + participant.nickName}
 							</div>
@@ -194,10 +205,14 @@ export default function GroupDialog(props: GroupsPageProps) {
 					/>
 				</label>
 				
-				<button type="submit" className="confirmButton">
+				<button
+					//type="submit"
+					className="confirmButton"
+					onClick={() => saveGroup()}
+				>
 					Save
 				</button>
-			</form>
+			</div>
 			
 		</div>
 	)
