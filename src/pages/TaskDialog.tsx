@@ -61,7 +61,7 @@ interface TaskPageProps {
 	task: Task;
 }
 
-export default function TaskPage(props: TaskPageProps) {
+export default function TaskDialog(props: TaskPageProps) {
 	
 	const { setShowTaskDialog, setTaskList, task } = props;
 	let auth: any = useAuth();

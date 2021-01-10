@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useAuth} from "../use-auth";
 import axios from "axios";
 import {Task} from "../entities/Task";
-import TaskPage from "./TaskPage";
+import TaskDialog from "./TaskDialog";
 
 
 const GET_TASKS_URL = process.env.NODE_ENV !== "production" ?
@@ -119,7 +119,7 @@ export default function Dashboard(props: DashboardProps) {
 			{
 				showTaskDialog
 				&& (
-					<TaskPage
+					<TaskDialog
 						setShowTaskDialog={setShowTaskDialog}
 						setTaskList={updateTaskList}
 						task={task}

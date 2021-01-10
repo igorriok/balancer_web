@@ -1,6 +1,8 @@
 import React, {CSSProperties, useEffect, useState} from 'react';
 import {useAuth} from "../use-auth";
 import axios from "axios";
+import GroupDialog from "./GroupDialog";
+import PasswordDialog from "./PasswordDialog";
 
 
 const POST_NICKNAME_URL = process.env.NODE_ENV !== "production" ?
@@ -51,6 +53,7 @@ export default function Settings(props: SettingsProps) {
 	let auth: any = useAuth();
 	const { setPageName } = props;
 	const [ nickName, setNickName ] = useState<string>("");
+	const [ openPasswordDialog, setOpenPasswordDialog ] = useState<boolean>(false);
 	
 	
 	
@@ -118,22 +121,41 @@ export default function Settings(props: SettingsProps) {
 			
 			<form onSubmit={saveNickName} style={styles.container} autoComplete="on">
 				
-				<label htmlFor="nickName">
-					<b>Nickname: </b>
-					<input
-						type="text"
-						placeholder="Enter nick name"
-						name="nickName"
-						required
-						value={nickName}
-						onChange={(e) => setNickName(e.target.value)}
-					/>
-				</label>
-				
-				<button type="submit" className="confirmButton">
-					Save
-				</button>
+				<div>
+					<label htmlFor="nickName">
+						<b>Nickname: </b>
+						<input
+							type="text"
+							placeholder="Enter nick name"
+							name="nickName"
+							required
+							value={nickName}
+							onChange={(e) => setNickName(e.target.value)}
+						/>
+					</label>
+					
+					<button type="submit" className="confirmButton">
+						Save
+					</button>
+				</div>
 			</form>
+			
+			<div>
+				<button
+					onClick={() => setOpenPasswordDialog(true)}
+				>
+					Change password
+				</button>
+			</div>
+			
+			{
+				openPasswordDialog
+				&& (
+					<PasswordDialog
+						setOpenPasswordDialog={setOpenPasswordDialog}
+					/>
+				)
+			}
 		
 		</div>
 	)
