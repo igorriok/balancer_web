@@ -1,8 +1,8 @@
 import React, {CSSProperties, useEffect, useState} from 'react';
 import {useAuth} from "../use-auth";
 import axios from "axios";
-import GroupDialog from "./GroupDialog";
 import PasswordDialog from "./PasswordDialog";
+import notify from "../elements/Toast";
 
 
 const POST_NICKNAME_URL = process.env.NODE_ENV !== "production" ?
@@ -156,6 +156,14 @@ export default function Settings(props: SettingsProps) {
 					/>
 				)
 			}
+			
+			<div>
+				<button
+					onClick={() => notify("on demand", 2)}
+				>
+					Toast
+				</button>
+			</div>
 		
 		</div>
 	)

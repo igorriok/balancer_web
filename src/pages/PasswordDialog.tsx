@@ -58,27 +58,35 @@ export default function PasswordDialog(props: TaskPageProps) {
 	const { setOpenPasswordDialog } = props;
 	let auth: any = useAuth();
 	const [ password, setPassword ] = useState<string>("");
+	const [ confirmPassword, setConfirmPassword ] = useState<string>("")
 	
 	
 	async function savePassword(event: any) {
 		
 		event.preventDefault();
 		
-		setOpenPasswordDialog(false);
-		
-		await axios.post(SAVE_PASSWORD_URL,
-			password,
-			{ headers: {
-					"Accept": "application/json",
-					Authorization: `Bearer ${auth.user.token}`
-				},
-			}).then((response) => {
+		if (password === confirmPassword) {
+			
+			setOpenPasswordDialog(false);
+			
+			await axios.post(SAVE_PASSWORD_URL,
+				password,
+				{
+					headers: {
+						"Accept": "application/json",
+						Authorization: `Bearer ${auth.user.token}`
+					},
+				}).then((response) => {
 				
 				console.log(response);
 				
 			}).catch(error => {
 				console.error('Error:', error);
 			});
+		} else {
+			console.log("Passwords don't match");
+			// TODO: display notification
+		}
 	}
 	
 	
@@ -107,7 +115,7 @@ export default function PasswordDialog(props: TaskPageProps) {
 				</h1>
 				
 				<input
-					type="text"
+					type="password"
 					placeholder="Enter new password"
 					name="taskName"
 					required
@@ -116,12 +124,12 @@ export default function PasswordDialog(props: TaskPageProps) {
 				/>
 			
 				<input
-					type="text"
+					type="password"
 					placeholder="Confirm password"
 					name="taskName"
 					required
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
+					value={confirmPassword}
+					onChange={(e) => setConfirmPassword(e.target.value)}
 				/>
 				
 				<button type="submit" className="confirmButton">

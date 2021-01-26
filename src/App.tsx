@@ -58,9 +58,14 @@ function App() {
             <div id="toolbar">
       
               <div className="menuDropdown">
-                <button className="btn" id="menuButton"
-                onClick={() => setOpenMenu(!openMenu)}>
-                  <i className="material-icons" id="menuIcon">menu</i>
+                <button
+                    className="btn"
+                    id="menuButton"
+                    onClick={() => setOpenMenu(!openMenu)}
+                >
+                  <i className="material-icons" id="menuIcon">
+                    menu
+                  </i>
                 </button>
                 {
                   openMenu
