@@ -40,6 +40,7 @@ function App() {
   
   return (
     <div className="App">
+      
       <ProvideAuth>
         
         <Router>
@@ -79,7 +80,7 @@ function App() {
             </div>
           </div>
           
-          <div>
+          <div className={"appContent"}>
         
             <Switch>
               

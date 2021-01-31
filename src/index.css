@@ -13,12 +13,12 @@ code {
 }
 
 html {
-  height: 100vh;
+  height: calc(100vh - 50px);
 }
 body {
-  min-height: 100vh;
+  min-height: calc(100vh - 50px);
 }
 
 #root {
-  height: 100vh;
+  height: calc(100vh - 50px);
 }

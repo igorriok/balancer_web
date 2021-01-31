@@ -101,30 +101,28 @@ export default function Dashboard(props: DashboardProps) {
 	
 	
 	return (
-		<div>
+		<div className={"page"}>
 			
-			<div>
+			<div id={"taskList"}>
 				{
 					taskList.map((task: Task) =>
-							<h5
+							<p
 								key={task.id}
 								onClick={() => openTaskDialog(task)}
 							>
 								{task.taskName + " - " + task.groupName}
-							</h5>
+							</p>
 					)
 				}
 			</div>
 			
 			{
-				showTaskDialog
-				&& (
-					<TaskDialog
-						setShowTaskDialog={setShowTaskDialog}
-						setTaskList={updateTaskList}
-						task={task}
-					/>
-					)
+				showTaskDialog &&
+				<TaskDialog
+					setShowTaskDialog={setShowTaskDialog}
+					setTaskList={updateTaskList}
+					task={task}
+				/>
 			}
 		</div>
 	)

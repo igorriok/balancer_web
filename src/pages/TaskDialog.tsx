@@ -141,7 +141,7 @@ export default function TaskDialog(props: TaskPageProps) {
 	
 	
 	return (
-		<div id="taskPage" style={styles.taskPage}>
+		<div id={"taskDialog"} style={styles.taskPage}>
 			
 			<form onSubmit={saveTask} style={styles.container} autoComplete="on">
 				

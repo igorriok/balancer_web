@@ -16,16 +16,6 @@ interface StylesDictionary {
 	[Key: string]: CSSProperties;
 }
 const styles: StylesDictionary = {
-	taskPage: {
-		width: "100%", /* Full width */
-		height: "100%", /* Full height */
-		overflow: "auto", /* Enable scroll if needed */
-		display: "flex",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-		//paddingTop: '5%'
-	},
 	container: {
 		//padding: '0% 25% 5% 25%',
 		padding: '0 1% 0 1%',
@@ -34,7 +24,7 @@ const styles: StylesDictionary = {
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: 'rgba(254, 254, 254, 0.9)',
-		margin: '0',
+		margin: 8,
 		border: '1px solid #888',
 		width: '95%',
 		maxWidth: '600px',
@@ -117,7 +107,7 @@ export default function Settings(props: SettingsProps) {
 	
 	
 	return (
-		<div id="taskPage" style={styles.taskPage}>
+		<div className="page">
 			
 			<form onSubmit={saveNickName} style={styles.container} autoComplete="on">
 				
