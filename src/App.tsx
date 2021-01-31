@@ -38,15 +38,6 @@ function App() {
   },[]);
   
   
-  const pageNameElement = () => {
-    return (
-        <div>
-          { pageName }
-        </div>
-    )
-  }
-  
-  
   return (
     <div className="App">
       <ProvideAuth>
@@ -68,15 +59,12 @@ function App() {
                   </i>
                 </button>
                 {
-                  openMenu
-                    &&
-                  (
-                      <div className="menuDropdownContent">
-                        <Link to={"/"}>Dashboard</Link>
-                        <Link to={"/groups"}>Groups</Link>
-                        <Link to={"/settings"}>Settings</Link>
-                      </div>
-                  )
+                  openMenu &&
+                    <div className="menuDropdownContent">
+                      <Link to={"/"}>Dashboard</Link>
+                      <Link to={"/groups"}>Groups</Link>
+                      <Link to={"/settings"}>Settings</Link>
+                    </div>
                 }
               </div>
               
